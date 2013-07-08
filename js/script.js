@@ -292,10 +292,15 @@ function removeInfo(index){
  }
 }
 function finish(){
+	//Remove rotation
+	document.getElementById("reset").onmouseover = function(){};
 	if(finish_without_posting()!=-1){
 		toggle();
 		post_to_url();
 	}
+	else// Cannot POST so restore rotation
+		document.getElementById("reset").onmouseover = reset_rotate; 
+	
 }
 function finish_without_posting(){
 	var groups = new Array(0,0,0,0,0,0,0,0,0);

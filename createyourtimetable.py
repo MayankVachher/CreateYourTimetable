@@ -29,8 +29,17 @@ class MainPage(webapp2.RequestHandler):
         if user:
             timetable_query = Timetable.query(ancestor = tt_key(user.email())).order(Timetable.date)
             timetable = timetable_query.fetch(10)
-
-            template_values = {'timetable':  timetable}
+            count = 1
+            length = len(timetable)
+            if length > 0:
+                for element in timetable:
+                    if count==length:
+                        break
+                    count = count + 1
+                    element.key.delete()
+                template_values = {'timetable':  timetable[length-1]}
+            else:
+                template_values = {'timetable':  ""}
             template = JINJA_ENVIRONMENT.get_template('main.html')
             self.response.write(template.render(template_values))
         else:

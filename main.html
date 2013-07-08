@@ -19,11 +19,12 @@
 {% autoescape true %}
 </script>
 <script>
-{% for i in timetable %}
-var storedCourses = "{{ i.courses }}";
-{% endfor %}
+
+var storedCourses = "{{ timetable.courses }}";
+
 function init(){
 	assignId();
+	
 	if(!storedCourses)
 		return;
 	else{
