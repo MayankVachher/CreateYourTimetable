@@ -1,0 +1,163 @@
+<!-- This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+<script src="js/script.js">
+{% autoescape true %}
+</script>
+<script>
+{% for i in timetable %}
+var storedCourses = "{{ i.courses }}";
+{% endfor %}
+function init(){
+	if(storedCourses.length==0)
+		return;
+	else{
+		var storedIndexes = courses_from_string();
+		for(var i=0 ; i<storedIndexes.length ; i++){
+			color(storedIndexes[i]+1);
+		}
+		finish_without_posting();
+	}
+}
+window.onload = init;
+</script>
+</head>
+<body>
+<div id="infobar" class="infobar-hidden">qwerty</div>
+<div id="arrow" onclick="toggle();"><img src="images/arrow.png" id="arrow-img" width="50px" height="50px" title="Open Course Menu"></div>
+<div id="cross" onclick="clearall();"><img src="images/cross.png" id="cross-img" width="50px" height="50px" title="Reset"></div>
+<div id="tick" onclick="finish();"><img src="images/tick.png" id="tick-img" width="50px" height="50px" title="Done"></div>
+<div id="reset" onclick="reset();"><img src="images/reset.png" if="reset-img" width="50px" height="50px" title="Start Again"></div>
+<div id="navbar" style="position:fixed;height:400px;width:300px;background-color:white;margin-top:100px;margin-left:-300px;overflow:scroll;">
+<div id="1" class="options" onclick="color(1);" onmouse>	Applied Cryptography	</div>
+<div id="2" class="options" onclick="color(2);">	Algorithms in Computer Biology	</div>
+<div id="3" class="options" onclick="color(3);">	Analog Circuit Design	</div>
+<div id="4" class="options" onclick="color(4);">	Algorithms for discrete optimization	</div>
+<div id="5" class="options" onclick="color(5);">	Computer Architecture	</div>
+<div id="6" class="options" onclick="color(6);">	Cellular Data Network	</div>
+<div id="7" class="options" onclick="color(7);">	Collabortive Filtering	</div>
+<div id="8" class="options" onclick="color(8);">	Compilers	</div>
+<div id="9" class="options" onclick="color(9);">	Database Systems Implementation	</div>
+<div id="10" class="options" onclick="color(10);">	Digital Hardware Design	</div>
+<div id="11" class="options" onclick="color(11);">	Data Mining	</div>
+<div id="12" class="options" onclick="color(12);">	Economics of Information & IT	</div>
+<div id="13" class="options" onclick="color(13);">	Entrepreneurship	</div>
+<div id="14" class="options" onclick="color(14);">	Foundations of Computer Security	</div>
+<div id="15" class="options" onclick="color(15);">	Graduate Algorithms (for MTech only)	</div>
+<div id="16" class="options" onclick="color(16);">	Image Analysis	</div>
+<div id="17" class="options" onclick="color(17);">	Introduction to Economic Analysis	</div>
+<div id="18" class="options" onclick="color(18);">	Introduction to VLSI Design	</div>
+<div id="19" class="options" onclick="color(19);">	Logic for Computer Science	</div>
+<div id="20" class="options" onclick="color(20);">	Logic Programming and Learning	</div>
+<div id="21" class="options" onclick="color(21);">	Miolecular Biology and biochemistry	</div>
+<div id="22" class="options" onclick="color(22);">	Mobile Computing	</div>
+<div id="23" class="options" onclick="color(23);">	Machine Learning	</div>
+<div id="24" class="options" onclick="color(24);">	Operating Systems (ECE only)	</div>
+<div id="25" class="options" onclick="color(25);">	Physics-1	</div>
+<div id="26" class="options" onclick="color(26);">	Privacy in Location-based Services	</div>
+<div id="27" class="options" onclick="color(27);">	Probability and Random Processes	</div>
+<div id="28" class="options" onclick="color(28);">	PSOSM	</div>
+<div id="29" class="options" onclick="color(29);">	PvsNP	</div>
+<div id="30" class="options" onclick="color(30);">	Robotics	</div>
+<div id="31" class="options" onclick="color(31);">	Systems Biology	</div>
+<div id="32" class="options" onclick="color(32);">	Statistical Computation	</div>
+<div id="33" class="options" onclick="color(33);">	Software Engineering	</div>
+<div id="34" class="options" onclick="color(34);">	Theory of Modern Cryptography	</div>
+
+
+
+</div>
+<div style="margin-left:100px;margin-right:auto;width:70%;padding-top:50px;height:90%;width:1700px;">
+
+<table height="90%" width="1000px">
+<tr class="top-row">
+	<td class="empty-box"></td>
+	<td class="top-row-elements">9:00 - 9:30</td>
+	<td class="top-row-elements">9:30 - 10:00</td>
+	<td class="top-row-elements">10:00 - 10:30</td>
+	<td class="top-row-elements">10:30 - 11:00</td>
+	<td class="top-row-elements">11:00 - 11:30</td>
+	<td class="top-row-elements">11:30 - 12:00</td>
+	<td class="top-row-elements">12:00 - 12:30</td>
+	<td class="top-row-elements">12:30 - 13:00</td>
+	<td class="top-row-elements">13:00 - 14:00</td>
+	<td class="top-row-elements">14:00 - 14:30</td>
+	<td class="top-row-elements">14:30 - 15:00</td>
+	<td class="top-row-elements">15:00 - 15:30</td>
+	<td class="top-row-elements">15:30 - 16:00</td>
+	<td class="top-row-elements">16:00 - 16:30</td>
+	<td class="top-row-elements">16:30 - 17:00</td>
+</tr>
+<tr>
+	<td class="day">Monday</td>
+	<td></td>
+	<td></td>
+	<td class="group1" colspan=3></td>
+	<td class="group2" colspan=3></td>
+	<td class="lunch">L</td>
+	<td class="group5" colspan=3></td>
+	<td colspan=3></td>
+</tr>
+<tr>
+	<td class="day">Tuesday</td>
+	<td></td>
+	<td></td>
+	<td class="group4" colspan=3></td>
+	<td class="group3" colspan=3 id="xyz"></td>
+	<td class="lunch">U</td>
+	<td class="group8" colspan=3></td>
+	<td class="group6" colspan=3></td>
+
+</tr>
+<tr>
+	<td class="day">Wednesday</td>
+	<td></td>
+	<td></td>
+	<td class="group1" colspan=3></td>
+	<td class="group7" colspan=3></td>
+	<td class="lunch">N</td>
+	<td class="group9" colspan=3></td>
+	<td class="group9" colspan=3></td>
+
+</tr>
+<tr>
+	<td class="day">Thursday</td>
+	<td></td>
+	<td></td>
+	<td class="group4" colspan=3></td>
+	<td class="group2" colspan=3></td>
+	<td class="lunch">C</td>
+	<td class="group5" colspan=3></td>
+	<td></td>
+	<td colspan=2></td>
+</tr>
+<tr>
+	<td class="day">Friday</td>
+	<td></td>
+	<td class="group6" colspan=3></td>
+	<td></td>
+	<td class="group3" colspan=3></td>
+	<td class="lunch">H</td>
+	<td class="group8" colspan=3></td>
+	<td class="group7" colspan=3></td>
+</tr>
+
+</table>
+</div>
+</body>
+</html>
+{% endautoescape %}

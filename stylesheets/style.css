@@ -1,0 +1,229 @@
+/* This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+html, body, div {margin: 0; padding: 0;}
+html, body{height: 100%;}
+/*html{
+ background-image:url('images/iiitd.png');
+ background-repeat:no-repeat;
+ background-position:bottom right;
+}*/
+body{
+ height:100%; 
+ width:100%;
+ font-family:"Lucida Console";
+ padding:0px;
+ margin:0px;
+ background-image:url('../images/back.png');
+ background-repeat:no-repeat;
+ background-position:bottom left;
+}
+img#arrow-img{
+ cursor: pointer;
+}
+img#cross-img{
+ cursor:pointer;
+}
+img#tick-img{
+ cursor:pointer;
+}
+table{
+ border: 0px solid grey;
+ border-collapse:collapse;
+ padding:0px;
+ margin:0px;
+ table-layout:fixed;
+ background-color: rgba(240,240,240,0.5);
+}
+div#arrow{
+ -moz-border-radius:50%;
+ -webkit-border-radius:50%;
+ border-radius:50%;
+ display:inline-block;
+ position:fixed;
+ margin-top:50px;
+ height:50px;
+ width:50px;
+}
+div#tick{
+ display:inline-block;
+ position:fixed;
+ margin-top:50px;
+ height:50px;
+ width:50px;
+ margin-left:-300px;
+}
+div#cross{
+ display:inline-block;
+ position:fixed;
+ margin-top:50px;
+ height:50px;
+ width:50px;
+ margin-left:-250px;
+}
+div#cross{
+ display:none;
+ position:fixed;
+ margin-top:50px;
+ height:50px;
+ width:50px;
+ margin-left:-300px;
+}
+td.selected{
+ background-color:rgb(51,51,51);
+ color:white;
+
+}
+td.collision{
+ background-color:rgb(255,128,128);
+
+}
+tr,td{
+border:0px;
+width:100px;
+text-align:center;
+}
+td.top-row-elements{
+ text-align:center;
+}
+td.lunch{
+ background-color:orange;
+ color:white;
+}
+td.day{
+border: 0px solid black;
+width:100px;
+background-color:rgba(0,0,0,0.0);
+color:rgb(51,51,51);
+text-align:left;
+}
+td.day:hover{
+ color:orange;
+ background-color:rgba(255,255,255,0.0);
+}
+td:hover{
+background-color:rgb(63,173,168);!important
+}
+tr.top-row{
+ font-size:8px;
+ border-bottom: 1px solid rgb(51,51,51);
+}
+td.empty-box:hover{
+ background-color:white;
+}
+select {width:200px;} 
+
+select:focus {width:300px;} 
+div.options{
+ height:30px;
+ width:280px;
+ font-size:12px;
+ text-align:center; 
+ display:inline-block;
+ line-height: 30px;
+ cursor: pointer;
+}
+div.options:hover{
+ background-color:orange;
+ text-color:white;
+}
+div.selected{
+ background-color:orange;
+ text-color:white;
+}
+.group1 , .group2 , .group3 , .group4 , .group5 , .group6 , .group7 , .group8 , .group9{
+ background-color: rgba(0,0,0,0.0);
+ border:0px;
+ width:100px;
+ text-align:center;
+}
+#final1{
+ background-color: #d56262;
+ border:0px;
+ width:100px;
+ text-align:center;
+ color:white;
+}
+#final2{
+ background-color: #a4d562;
+ border:0px;
+ width:100px;
+ text-align:center;
+ color:white;
+}
+#final3{
+ background-color: #62d5c0;
+ border:0px;
+ width:100px;
+ text-align:center;
+ color:white;
+}
+#final4{
+ background-color: #629dd5;
+ border:0px;
+ width:100px;
+ text-align:center;
+ color:white;
+}
+#final5{
+ background-color: #a462d5;
+ border:0px;
+ width:100px;
+ text-align:center;
+ color:white;
+}
+#final6{
+ background-color: #d562c1;
+ border:0px;
+ width:100px;
+ text-align:center;
+ color:white;
+}
+#final7{
+ background-color: #d5627c;
+ border:0px;
+ width:100px;
+ text-align:center;
+ color:white;
+}
+#final8{
+ background-color: #d59f62;
+ border:0px;
+ width:100px;
+ text-align:center;
+ color:white;
+}
+#final9{
+ background-color: #d5c962;
+ border:0px;
+ width:100px;
+ text-align:center;
+ color:white;
+}
+div.infobar-hidden{
+ top:-60px;
+ left-200px;
+ position:fixed;
+ display:none;
+}
+div.infobar-shown{
+ width:200px;
+ height:40px;
+ position:absolute;
+ background-color:rgb(128,128,128);
+ color:white;
+ text-align:center;
+ font-size: 10px;
+ padding-top:10px;
+ padding-bottom:10px;
+}
