@@ -14,4 +14,9 @@ indexes:
   ancestor: yes
   properties:
   - name: date
+
+- kind: Timetable
+  ancestor: yes
+  properties:
+  - name: date
     direction: desc

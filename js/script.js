@@ -23,21 +23,31 @@ var profs = new Array("Dr. Somitra Sanadhya","Dr. Dhruv Grover","Dr. M.S. Hashmi
 
 var selectedCourses = new Array();
 var collisionCourses = new Array();
-function rotate(deg){
-//alert(deg)
-document.getElementById("arrow").setAttribute(
-        "style", "transform:rotate(" + deg + "deg);"
-      + "-moz-transform: rotate(" + deg + "deg);"
-      + "-o-transform: rotate(" + deg + "deg);"
-      + "-webkit-transform:rotate(" + deg + "deg);"
-      + "filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=" + deg + ");");
+function rotate(eleStr,deg){
+	document.getElementById(eleStr).setAttribute(
+			"style", "transform:rotate(" + deg + "deg);"
+		  + "-moz-transform: rotate(" + deg + "deg);"
+		  + "-o-transform: rotate(" + deg + "deg);"
+		  + "-webkit-transform:rotate(" + deg + "deg);"
+		  + "filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=" + deg + ");");
+	if(eleStr=="reset"){
+			var element = document.getElementById("reset");
+			element.style.marginLeft= "0px";
+			element.style.display = "inline-block";
+	}
 }
 function setTd(groupIndex, className, innerHTML){
- var e = document.getElementsByClassName("group"+groupIndex);
- for(var i=0; i<e.length ; i++){
+ //var e = document.getElementsByClassName("group"+groupIndex);
+ var x = document.getElementById(groupIndex+":1");
+ var y = document.getElementById(groupIndex+":2");
+ x.className = className;
+ y.className = className;
+ x.innerHTML = innerHTML;
+ y.innerHTML = innerHTML;
+ /*for(var i=0; i<e.length ; i++){
 	e[i].className = className;
 	e[i].innerHTML = innerHTML;
- }
+ }*/
 }
 function addTd(groupIndex, className, innerHTML){
  var e = document.getElementsByClassName("group"+groupIndex);
@@ -51,13 +61,15 @@ function increase(){
  y=document.getElementById("arrow");
  z=document.getElementById("tick");
  a=document.getElementById("cross");
-
- rotate(-11.25 * count);
+ b=document.getElementById("reset");
+ 
+ rotate("arrow",-11.25 * count);
  count++;
  x.style.marginLeft=(j-300)+"px";
  y.style.marginLeft=k+"px";
  z.style.marginLeft=(k-250)+"px";
  a.style.marginLeft=(k-200)+"px";
+ b.style.marginLeft=(k-250)+"px";
 
  k+=15.625;
  j+=18.75;
@@ -67,12 +79,14 @@ function decrease(){
  y=document.getElementById("arrow");
  z=document.getElementById("tick"); 
  a=document.getElementById("cross");
+ b=document.getElementById("reset");
 
- rotate(-11.25 * count);
+ rotate("arrow",-11.25 * count);
  x.style.marginLeft=j+"px";
  y.style.marginLeft=(250+k)+"px";
  z.style.marginLeft=k+"px";
  a.style.marginLeft=(50+k)+"px";
+ b.style.marginLeft=k+"px";
 
  count--;
  k-=15.625;
@@ -80,7 +94,6 @@ function decrease(){
 }
 function toggle(){
  x=document.getElementById("navbar");
- y=document.getElementById("arrow");
 
  if(x.style.marginLeft=="-300px"){
 	j = 0;
@@ -98,8 +111,21 @@ function toggle(){
 		setTimeout("decrease()",i*12.5);
 	}
  }
- 
 }
+var timeouts =[];
+function reset_rotate(){
+	var rot = 22.5;
+	for(var i=0; i<=16; i++){
+		timeouts.push(setTimeout("rotate(\"reset\","+ (i*rot) +")",i*31.25));
+	}
+}
+function stop_reset_rotate(){
+	for(var i =0; i<timeouts.length ; i++){
+		clearTimeout(timeouts[i]);
+	}
+	timeouts = [];
+}
+
 function addCourse(index){
  var x = document.getElementById(index+"");
  x.className += " selected";
@@ -115,6 +141,7 @@ function deleteCourse(index){
  var x = document.getElementById(index+"");
  x.className = "options";
  var g="group"+groupIndexes[index-1];
+
  setTd(groupIndexes[index-1], g , "");
 /*
  var e = document.getElementsByClassName(g);
@@ -188,6 +215,7 @@ function color(indexCourseSelect){
 		collision=1;
 	}
  }
+ 
  if(present==1 && collision==1){
 	//Remove text for only the un-clicked Course
 	//splice must happen before call to deleteCollision()
@@ -212,12 +240,12 @@ function color(indexCourseSelect){
 function clearall(){
 	//Clear TD elements of the table
 	for(var i=1 ; i<=9 ; i++){
-		var x = document.getElementsByClassName("group"+i);
-		for(var a=0 ; a< x.length ; a++){
-			x[a].className = "group"+i;
-			x[a].innerHTML = "";
-		}
-		
+		var x = document.getElementById(i+":1");
+		var y = document.getElementById(i+":2");
+		x.className = "group"+i;
+		y.className = "group"+i;
+		x.innerHTML = "";
+		y.innerHTML = "";
 	}
 	//Clear the navbar elements
 	for(var i =1; i<=34;i++){
@@ -264,30 +292,39 @@ function removeInfo(index){
  }
 }
 function finish(){
+	if(finish_without_posting()!=-1){
+		toggle();
+		post_to_url();
+	}
+}
+function finish_without_posting(){
 	var groups = new Array(0,0,0,0,0,0,0,0,0);
 	for(var i=0; i<selectedCourses.length ;i++){
 		var tmp = groupIndexes[selectedCourses[i]];
-		groups[tmp]++;
+		groups[tmp-1]++;
 	}
+	var zeros = 0;
 	for(var i=0; i<9 ; i++){
 		if(groups[i]>1){
 			alert("First resolve all clashes in timetable!");
-			return;
+			return -1;
 		}
+		else if(groups[i]==0){
+			zeros++;
+		}
+	}
+	if(zeros==9){
+		alert("Select courses to form your timetable.");
+		return -1;
 	}
 	for(var i=0; i<9 ; i++){
 		if(groups[i]==1){
-		var x = document.getElementsByClassName("group"+i);
-		for(var a = 0; a<x.length ; a++){
-			x[a].id="final"+i;
-		}
-		for(var a = 0; a<x.length ; a++){
-			x[a].className="";
-		}
+			var x = document.getElementById((i+1)+":1");
+			var y = document.getElementById((i+1)+":2");
+			x.className = "final"+(i+1);
+			y.className = "final"+(i+1);
 		}
 	}
-	//Add reset
-	document.getElementById("reset").style.display = "inline-block";
 	//Start freezing
 	//Remove Cross
 	document.getElementById("cross").style.display = "none";
@@ -297,38 +334,9 @@ function finish(){
 	for(var i=1;i<34;i++){
 		document.getElementById(""+i).onclick = "";
 	}
-	post_to_url();
-}
-function finish_without_posting(){
-	var groups = new Array(0,0,0,0,0,0,0,0,0);
-	for(var i=0; i<selectedCourses.length ;i++){
-		var tmp = groupIndexes[selectedCourses[i]];
-		groups[tmp]++;
-	}
-	for(var i=0; i<9 ; i++){
-		if(groups[i]>1){
-			alert("First resolve all clashes in timetable!");
-			return;
-		}
-	}
-	for(var i=0; i<9 ; i++){
-		if(groups[i]==1){
-		var x = document.getElementsByClassName("group"+i);
-		for(var a = 0; a<x.length ; a++){
-			x[a].id="final"+i;
-		}
-		for(var a = 0; a<x.length ; a++){
-			x[a].className="";
-		}
-		}
-	}
-	//Start freezing
-	//Remove Cross
-	document.getElementById("cross").style.display = "none";
-	//Freeze changes in navbar
-	for(var i=1;i<34;i++){
-		document.getElementById(""+i).onclick = "";
-	}
+	//Add reset
+	document.getElementById("reset").style.display = "inline-block";
+	return 1;
 }
 function courses_from_index(){
 	var coursesStr = "";
@@ -353,7 +361,6 @@ function courses_from_string(){
 	return newSelectedCourses;
 }
 function post_to_url() {
-    alert("posting begins");
     method = "post";
     var form = document.createElement("form");
     form.setAttribute("method", method);
@@ -367,4 +374,38 @@ function post_to_url() {
 
     document.body.appendChild(form);
     form.submit();
+}
+function reset(){
+	stop_reset_rotate();
+	//Remove reset
+	document.getElementById("reset").removeAttribute('style');
+	//Add cross
+	document.getElementById("cross").style.display = "inline-block";
+	//Add tick
+	document.getElementById("tick").style.display = "inline-block";
+	//Unfreeze navbar
+	for(var i=1;i<34;i++){
+		document.getElementById(i+"").onclick = function(e){
+			var targ;
+			if (!e) var e = window.event;
+			if (e.target) targ = e.target;
+			else if (e.srcElement) targ = e.srcElement;
+			color(targ.id);
+		};
+	}
+	//reset td classes back to selected
+	for(var i = 0; i<selectedCourses.length ; i++){
+		var groupIndex = groupIndexes[selectedCourses[i]];
+		var x = document.getElementById(groupIndex+":1");
+		var y = document.getElementById(groupIndex+":2");
+		x.className = "group" + i + " selected";
+		y.className = "group" + i + " selected";
+	}
+}
+function assignId(){
+	for(var i=1 ; i<=9 ; i++){
+		var temp = document.getElementsByClassName("group"+i);
+		temp[0].id = i+":1";
+		temp[1].id = i+":2";
+	}
 }

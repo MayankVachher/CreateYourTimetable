@@ -23,7 +23,8 @@
 var storedCourses = "{{ i.courses }}";
 {% endfor %}
 function init(){
-	if(storedCourses.length==0)
+	assignId();
+	if(!storedCourses)
 		return;
 	else{
 		var storedIndexes = courses_from_string();
@@ -31,6 +32,7 @@ function init(){
 			color(storedIndexes[i]+1);
 		}
 		finish_without_posting();
+		document.getElementById("reset").onmouseover = reset_rotate;
 	}
 }
 window.onload = init;
@@ -41,9 +43,9 @@ window.onload = init;
 <div id="arrow" onclick="toggle();"><img src="images/arrow.png" id="arrow-img" width="50px" height="50px" title="Open Course Menu"></div>
 <div id="cross" onclick="clearall();"><img src="images/cross.png" id="cross-img" width="50px" height="50px" title="Reset"></div>
 <div id="tick" onclick="finish();"><img src="images/tick.png" id="tick-img" width="50px" height="50px" title="Done"></div>
-<div id="reset" onclick="reset();"><img src="images/reset.png" if="reset-img" width="50px" height="50px" title="Start Again"></div>
+<div id="reset" onclick="reset();"><img src="images/reset.png" id="reset-img" width="50px" height="50px" title="Start Again"></div>
 <div id="navbar" style="position:fixed;height:400px;width:300px;background-color:white;margin-top:100px;margin-left:-300px;overflow:scroll;">
-<div id="1" class="options" onclick="color(1);" onmouse>	Applied Cryptography	</div>
+<div id="1" class="options" onclick="color(1);">	Applied Cryptography	</div>
 <div id="2" class="options" onclick="color(2);">	Algorithms in Computer Biology	</div>
 <div id="3" class="options" onclick="color(3);">	Analog Circuit Design	</div>
 <div id="4" class="options" onclick="color(4);">	Algorithms for discrete optimization	</div>

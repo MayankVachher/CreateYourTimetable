@@ -27,7 +27,7 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            timetable_query = Timetable.query(ancestor = tt_key(user.email()))
+            timetable_query = Timetable.query(ancestor = tt_key(user.email())).order(Timetable.date)
             timetable = timetable_query.fetch(10)
 
             template_values = {'timetable':  timetable}

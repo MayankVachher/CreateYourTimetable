@@ -37,6 +37,9 @@ img#cross-img{
 img#tick-img{
  cursor:pointer;
 }
+img#reset-img{
+ cursor:pointer;
+}
 table{
  border: 0px solid grey;
  border-collapse:collapse;
@@ -71,12 +74,15 @@ div#cross{
  width:50px;
  margin-left:-250px;
 }
-div#cross{
+div#reset{
+ -moz-border-radius:50%;
+ -webkit-border-radius:50%;
+ border-radius:50%;
  display:none;
  position:fixed;
- margin-top:50px;
  height:50px;
  width:50px;
+ margin-top:50px;
  margin-left:-300px;
 }
 td.selected{
@@ -95,10 +101,12 @@ text-align:center;
 }
 td.top-row-elements{
  text-align:center;
+ cursor:default;
 }
 td.lunch{
  background-color:orange;
  color:white;
+ cursor:default;
 }
 td.day{
 border: 0px solid black;
@@ -106,6 +114,7 @@ width:100px;
 background-color:rgba(0,0,0,0.0);
 color:rgb(51,51,51);
 text-align:left;
+cursor:default;
 }
 td.day:hover{
  color:orange;
@@ -117,9 +126,6 @@ background-color:rgb(63,173,168);!important
 tr.top-row{
  font-size:8px;
  border-bottom: 1px solid rgb(51,51,51);
-}
-td.empty-box:hover{
- background-color:white;
 }
 select {width:200px;} 
 
@@ -147,63 +153,63 @@ div.selected{
  width:100px;
  text-align:center;
 }
-#final1{
+.final1{
  background-color: #d56262;
  border:0px;
  width:100px;
  text-align:center;
  color:white;
 }
-#final2{
+.final2{
  background-color: #a4d562;
  border:0px;
  width:100px;
  text-align:center;
  color:white;
 }
-#final3{
+.final3{
  background-color: #62d5c0;
  border:0px;
  width:100px;
  text-align:center;
  color:white;
 }
-#final4{
+.final4{
  background-color: #629dd5;
  border:0px;
  width:100px;
  text-align:center;
  color:white;
 }
-#final5{
+.final5{
  background-color: #a462d5;
  border:0px;
  width:100px;
  text-align:center;
  color:white;
 }
-#final6{
+.final6{
  background-color: #d562c1;
  border:0px;
  width:100px;
  text-align:center;
  color:white;
 }
-#final7{
+.final7{
  background-color: #d5627c;
  border:0px;
  width:100px;
  text-align:center;
  color:white;
 }
-#final8{
+.final8{
  background-color: #d59f62;
  border:0px;
  width:100px;
  text-align:center;
  color:white;
 }
-#final9{
+.final9{
  background-color: #d5c962;
  border:0px;
  width:100px;
