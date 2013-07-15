@@ -1,0 +1,10 @@
+***Version 3.0***
+-- Added navbar flier for people to see it easier
+-- Performance improvements
+-- Minor bug resolved
+-- Added Logout Button
+
+***Version 2.0***
+
+-- Performance Improvements
+-- Code Organizational Improvements

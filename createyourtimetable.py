@@ -31,15 +31,16 @@ class MainPage(webapp2.RequestHandler):
             timetable = timetable_query.fetch(10)
             count = 1
             length = len(timetable)
+            url_logout = users.create_logout_url(self.request.uri)
             if length > 0:
                 for element in timetable:
                     if count==length:
                         break
                     count = count + 1
                     element.key.delete()
-                template_values = {'timetable':  timetable[length-1]}
+                template_values = {'timetable':  timetable[length-1], 'share': 'no', 'url_logout': url_logout}
             else:
-                template_values = {'timetable':  ""}
+                template_values = {'timetable':  "", 'share':'no', 'url_logout': url_logout}
             template = JINJA_ENVIRONMENT.get_template('main.html')
             self.response.write(template.render(template_values))
         else:
@@ -54,4 +55,10 @@ class MainPage(webapp2.RequestHandler):
             timetable.put()
             self.redirect('/')
 
-application = webapp2.WSGIApplication([('/', MainPage),],debug = True)
+class Share(webapp2.RequestHandler):
+    def get(self):
+        template_values = {'timetable' : self.request.get("c"), 'share' : 'yes'}
+        template = JINJA_ENVIRONMENT.get_template('main.html')
+        self.response.write(template.render(template_values))
+
+application = webapp2.WSGIApplication([('/', MainPage),('/s',Share)],debug = True)

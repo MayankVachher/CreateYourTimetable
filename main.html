@@ -14,17 +14,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta property="og:image" content="http://createyourtimetable.appspot.com/images/CreateYourTT.jpg"/>
+<meta property="og:url" content="http://createyourtimetable.appspot.com/s"/>
+<meta property="og:title" content="Create your Timetable"/>
+<meta property="og:description" content="Helps you to create your timetable and store it on the web!" />
+<title>Create Your Timetable</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 <script src="js/script.js">
 {% autoescape true %}
 </script>
 <script>
-
+{% if share == 'no'%}
 var storedCourses = "{{ timetable.courses }}";
-
+{% else %}
+var storedCourses = "{{ timetable }}";
+{% endif %}
 function init(){
 	assignId();
-	
+	initGlobalVars();
 	if(!storedCourses)
 		return;
 	else{
@@ -32,6 +39,7 @@ function init(){
 		for(var i=0 ; i<storedIndexes.length ; i++){
 			color(storedIndexes[i]+1);
 		}
+		
 		finish_without_posting();
 		document.getElementById("reset").onmouseover = reset_rotate;
 	}
@@ -41,11 +49,21 @@ window.onload = init;
 </head>
 <body>
 <div id="infobar" class="infobar-hidden">qwerty</div>
-<div id="arrow" onclick="toggle();"><img src="images/arrow.png" id="arrow-img" width="50px" height="50px" title="Open Course Menu"></div>
-<div id="cross" onclick="clearall();"><img src="images/cross.png" id="cross-img" width="50px" height="50px" title="Reset"></div>
-<div id="tick" onclick="finish();"><img src="images/tick.png" id="tick-img" width="50px" height="50px" title="Done"></div>
-<div id="reset" onclick="reset();"><img src="images/reset.png" id="reset-img" width="50px" height="50px" title="Start Again"></div>
-<div id="navbar" style="position:fixed;height:400px;width:300px;background-color:white;margin-top:100px;margin-left:-300px;overflow:scroll;">
+
+<div id="facebook" {% if share == 'yes' %} style="visibility:hidden;" {% endif %}><img src="images/facebook.png" width="50px" height="50px" id="facebook-img" onclick="facebook_share();" title="Share on Facebook!" onmouseout="this.src='images/facebook.png'" onmouseover="this.src='images/facebook-blue.png'"></div>
+<div id="power" {% if share == 'yes' %} style="visibility:hidden;" {% endif %}><img src="images/power.png" id="power-img" width="50px" height="50px" title="Logout" {% if share == 'no' %} onclick="window.location.replace('{{url_logout}}') ;"{% endif %}{% if share == 'yes' %} style="visibility:hidden;" {% endif %}></div>
+<div id="navbar-container" class="border">
+<div id="arrow" onclick="toggle();" {% if share == 'yes' %} style="visibility:hidden;" {% endif %}><img src="images/arrow.png" id="arrow-img" width="50px" height="50px" title="Open Course Menu"></div>
+<div id="navbar-text" onclick="toggle();"><img src="images/navbar.png" width="50px" height="200px"></div>
+</div>
+<div id="cross" onclick="clearall();" {% if share == 'yes' %} style="visibility:hidden;" {% endif %}><img src="images/cross.png" id="cross-img" width="50px" height="50px" title="Reset"></div>
+<div id="tick" onclick="finish();" {% if share == 'yes' %} style="visibility:hidden;" {% endif %}><img src="images/tick.png" id="tick-img" width="50px" height="50px" title="Done"></div>
+<div id="reset" onclick="reset();" {% if share == 'yes' %} style="visibility:hidden;" {% endif %}><img src="images/reset.png" id="reset-img" width="50px" height="50px" title="Start Again"></div>
+{% if share == 'yes' %}
+<div style="position:absolute;top:50px;width:100px;height:100px;background-image:url('images/CreateYourTTalpha.png');background-size:100px 100px;cursor:pointer;" onclick="window.location = 'http://createyourtimetable.appspot.com/';" title="Create your own Timetable now!"></div>
+{% endif %}
+<div id="navbar" style="position:fixed;height:400px;width:300px;background-color:white;margin-top:100px;margin-left:-300px;overflow:scroll;margin-bottom:0px;padding-bottom:0px;">
+
 <div id="1" class="options" onclick="color(1);">	Applied Cryptography	</div>
 <div id="2" class="options" onclick="color(2);">	Algorithms in Computer Biology	</div>
 <div id="3" class="options" onclick="color(3);">	Analog Circuit Design	</div>

@@ -40,6 +40,12 @@ img#tick-img{
 img#reset-img{
  cursor:pointer;
 }
+img#facebook-img{
+ cursor:pointer;
+}
+img#power-img{
+ cursor:pointer;
+}
 table{
  border: 0px solid grey;
  border-collapse:collapse;
@@ -47,6 +53,28 @@ table{
  margin:0px;
  table-layout:fixed;
  background-color: rgba(240,240,240,0.5);
+ background-image: url('../images/CreateYourTTalpha.png');
+ background-repeat: no-repeat;
+ background-position: center;
+ background-size: 300px 300px;
+ 
+}
+div.border{
+	border-style:none;
+	border-left-style:none;
+	border-width:5px;
+	border-color:orange;
+	width:50px;
+	height:250px;
+	position:fixed;
+	margin-top:50px;
+}
+div.no-border{
+	border-style:none;
+	width:50px;
+	height:250px;
+	position:fixed;
+	margin-top:50px;
 }
 div#arrow{
  -moz-border-radius:50%;
@@ -54,7 +82,7 @@ div#arrow{
  border-radius:50%;
  display:inline-block;
  position:fixed;
- margin-top:50px;
+ /*margin-top:50px;*/
  height:50px;
  width:50px;
 }
@@ -65,6 +93,14 @@ div#tick{
  height:50px;
  width:50px;
  margin-left:-300px;
+}
+div#navbar-text{
+ display:inline-block;
+ position:fixed;
+ margin-top:50px;
+ height:200px;
+ width:50px;
+ cursor:pointer;
 }
 div#cross{
  display:inline-block;
@@ -84,6 +120,22 @@ div#reset{
  width:50px;
  margin-top:50px;
  margin-left:-300px;
+}
+div#facebook{
+ position:fixed;
+ right: 50px;
+ margin:0px;
+ padding:0px;
+ width:50px;
+ height:50px;
+}
+div#power{
+ position:fixed;
+ right: 0px;
+ margin:0px;
+ padding:0px;
+ width:50px;
+ height:50px;
 }
 td.selected{
  background-color:rgb(51,51,51);

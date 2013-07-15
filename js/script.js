@@ -14,7 +14,15 @@
 var timerID = null;
 var j = 10;
 var k = 9.375;
+var l;
 var count = 1;
+ var Vnavbar;
+ var Varrow;
+ var Vtick; 
+ var Vcross;
+ var Vreset;
+ var VnavbarContainer;
+ var VnavbarText;
 var elements = new Array("AC","ACB","ACD","ADD","CA","CDN","CF","CMP","DBSI","DHD","DM","EIIT","ENT","FCS","GradAlgo","IA","IEA","IVD","LCS","LPL",
 "MBB","MC","ML","OS","PHY","PLBS","PRP","PSOSM","PvsNP","ROB","SB","SC","SE","TMC");
 var groupIndexes = new Array(3,8,5,4,5,8,8,2,1,4,1,2,7,8,5,6,1,3,1,2,0,2,7,10,9,4,7,4,8,7,3,6,5,6);
@@ -50,66 +58,78 @@ function setTd(groupIndex, className, innerHTML){
  }*/
 }
 function addTd(groupIndex, className, innerHTML){
- var e = document.getElementsByClassName("group"+groupIndex);
- for(var i=0; i<e.length ; i++){
-	e[i].className += className;
-	e[i].innerHTML += innerHTML;
- }
+ var x = document.getElementById(groupIndex+":1");
+ var y = document.getElementById(groupIndex+":2");
+ x.className += className;
+ y.className += className;
+ x.innerHTML += innerHTML;
+ y.innerHTML += innerHTML;
 }
 function increase(){
- x=document.getElementById("navbar");
+ /*x=document.getElementById("navbar");
  y=document.getElementById("arrow");
  z=document.getElementById("tick");
  a=document.getElementById("cross");
  b=document.getElementById("reset");
+ c=document.getElementById("navbar-container");
+ d=document.getElementById("navbar-text");*/
  
  rotate("arrow",-11.25 * count);
  count++;
- x.style.marginLeft=(j-300)+"px";
- y.style.marginLeft=k+"px";
- z.style.marginLeft=(k-250)+"px";
- a.style.marginLeft=(k-200)+"px";
- b.style.marginLeft=(k-250)+"px";
-
+ Vnavbar.style.marginLeft=(j-300)+"px";
+ Varrow.style.marginLeft=j+"px";
+ Vtick.style.marginLeft=(k-250)+"px";
+ Vcross.style.marginLeft=(k-200)+"px";
+ Vreset.style.marginLeft=(k-250)+"px";
+ VnavbarContainer.style.width=50+k+"px";
+ VnavbarContainer.style.height=250+l+"px";
+ VnavbarText.style.marginLeft=j+"px";
+ 
  k+=15.625;
  j+=18.75;
+ l+=12.5;
 }
 function decrease(){
- x=document.getElementById("navbar");
- y=document.getElementById("arrow");
- z=document.getElementById("tick"); 
- a=document.getElementById("cross");
- b=document.getElementById("reset");
-
+ 
+ 
  rotate("arrow",-11.25 * count);
- x.style.marginLeft=j+"px";
- y.style.marginLeft=(250+k)+"px";
- z.style.marginLeft=k+"px";
- a.style.marginLeft=(50+k)+"px";
- b.style.marginLeft=k+"px";
-
+ Vnavbar.style.marginLeft=j+"px";
+ Varrow.style.marginLeft=(300+j)+"px";
+ Vtick.style.marginLeft=k+"px";
+ Vcross.style.marginLeft=(50+k)+"px";
+ Vreset.style.marginLeft=k+"px";
+ VnavbarContainer.style.width=300+k+"px";
+ VnavbarContainer.style.height=450+l+"px";
+ VnavbarText.style.marginLeft=(300+j)+"px";
+ 
  count--;
  k-=15.625;
  j-=18.75;
+ l-=12.5;
 }
 function toggle(){
  x=document.getElementById("navbar");
-
+ y=document.getElementById("navbar-container");
+ 
  if(x.style.marginLeft=="-300px"){
 	j = 0;
 	k = 0;
+	l = 0;
 	count = 0;
 	for(var i=0;i<=16;i++){
 		setTimeout("increase()",i*12.5);
 	}
+	//y.className="no-border";
  }
  else{
 	j = 0;
 	k = 0;
+	l = 0;
 	count = 16;
 	for(var i=0;i<=16;i++){
 		setTimeout("decrease()",i*12.5);
 	}
+	//y.className="border";
  }
 }
 var timeouts =[];
@@ -155,7 +175,7 @@ function addCollision(index){
  var x = document.getElementById(index+"");
  x.className += " selected";
 
- addTd( groupIndexes[index-1], " collision", elements[index-1]+" ")
+ addTd( groupIndexes[index-1], " collision", elements[index-1]+" ");
  /*var e = document.getElementsByClassName("group"+groupIndexes[index-1]);
  for(var i=0;i<e.length; i++){
 	e[i].className += " collision";
@@ -206,6 +226,7 @@ function color(indexCourseSelect){
  var present = 0;
  var collision =0;
  var tempIndex = -1;
+ 
  for(var i=0 ;i<selectedCourses.length ; i++){
 	if(selectedCourses[i]==indexCourseSelect-1){
 		present=1;
@@ -215,6 +236,7 @@ function color(indexCourseSelect){
 		collision=1;
 	}
  }
+ 
  
  if(present==1 && collision==1){
 	//Remove text for only the un-clicked Course
@@ -294,13 +316,13 @@ function removeInfo(index){
 function finish(){
 	//Remove rotation
 	document.getElementById("reset").onmouseover = function(){};
+	
 	if(finish_without_posting()!=-1){
 		toggle();
 		post_to_url();
 	}
 	else// Cannot POST so restore rotation
 		document.getElementById("reset").onmouseover = reset_rotate; 
-	
 }
 function finish_without_posting(){
 	var groups = new Array(0,0,0,0,0,0,0,0,0);
@@ -413,4 +435,16 @@ function assignId(){
 		temp[0].id = i+":1";
 		temp[1].id = i+":2";
 	}
+}
+function facebook_share(){
+	window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent("http://createyourtimetable.appspot.com/s?c="+courses_from_index()),'facebook-share-dialog','width=626,height=436'); 
+}
+function initGlobalVars(){
+ Vnavbar=document.getElementById("navbar");
+ Varrow=document.getElementById("arrow");
+ Vtick=document.getElementById("tick"); 
+ Vcross=document.getElementById("cross");
+ Vreset=document.getElementById("reset");
+ VnavbarContainer=document.getElementById("navbar-container");
+ VnavbarText=document.getElementById("navbar-text");
 }
