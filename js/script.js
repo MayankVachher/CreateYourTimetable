@@ -155,11 +155,10 @@ function stop_reset_rotate(){
 	timeouts = [];
 }
 
-function addCourse(index,share){
- if(share=="no"){
-	var x = document.getElementById(index+"");
-	x.className += " selected";
- }
+function addCourse(index){
+ var x = document.getElementById(index+"");
+ if(x)x.className += " selected";
+ 
  
  addTd( groupIndexes[index-1], " selected", elements[index-1]+" ")
 /* var e = document.getElementsByClassName("group"+groupIndexes[index-1]);
@@ -169,11 +168,9 @@ function addCourse(index,share){
  }*/
  addInfo(index);
 }
-function deleteCourse(index,share){
- if(share=="no"){
-	var x = document.getElementById(index+"");
-	x.className = "options";
- }
+function deleteCourse(index){
+ var x = document.getElementById(index+"");
+ if(x)x.className = "options";
  var g="group"+groupIndexes[index-1];
  setTd(groupIndexes[index-1], g , "");
 /*
@@ -235,7 +232,7 @@ function deleteCollision(index){
 	color(toColor[i]+1);
  }
 }
-function color(indexCourseSelect,share){
+function color(indexCourseSelect){
  var present = 0;
  var collision =0;
  var tempIndex = -1;
@@ -263,12 +260,12 @@ function color(indexCourseSelect,share){
 	addCollision(indexCourseSelect);
  }
  else if(present==1 && collision==0){ // Unclick without any collisions
-	deleteCourse(indexCourseSelect,share);
+	deleteCourse(indexCourseSelect);
 	selectedCourses.splice(tempIndex,1);
  }
  else{ // Course selected, no collisions
 	selectedCourses.push(indexCourseSelect-1);
-	addCourse(indexCourseSelect,share);
+	addCourse(indexCourseSelect);
  }
 
 }
@@ -471,7 +468,7 @@ function initGlobalVars(){
 function assignTooltips(){
 	document.getElementById("tick").onmouseover= function(){
 		document.getElementById("tooltip").className= "tooltip-shown";
-		document.getElementById("tooltip").innerHTML= "Click to complete";
+		document.getElementById("tooltip").innerHTML= "Click to complete and save";
 	};
 	document.getElementById("tick").onmouseout= function(){
 		document.getElementById("tooltip-arrow").className = "tooltip-arrow-hidden";
