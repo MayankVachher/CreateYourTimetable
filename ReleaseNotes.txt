@@ -1,3 +1,8 @@
+***Version 4.0***
+-- Cleaned up UI to have everything in Navbar
+-- Added (more obvious) tooltip on hovering over buttons
+-- Made some structural changes - leads to improvement in performance
+
 ***Version 3.0***
 -- Added navbar flier for people to see it easier
 -- Performance improvements

@@ -23,14 +23,16 @@ var count = 1;
  var Vreset;
  var VnavbarContainer;
  var VnavbarText;
+ var VnavbarWrapper;
 var elements = new Array("AC","ACB","ACD","ADD","CA","CDN","CF","CMP","DBSI","DHD","DM","EIIT","ENT","FCS","GradAlgo","IA","IEA","IVD","LCS","LPL",
 "MBB","MC","ML","OS","PHY","PLBS","PRP","PSOSM","PvsNP","ROB","SB","SC","SE","TMC");
 var groupIndexes = new Array(3,8,5,4,5,8,8,2,1,4,1,2,7,8,5,6,1,3,1,2,0,2,7,10,9,4,7,4,8,7,3,6,5,6);
 var profs = new Array("Dr. Somitra Sanadhya","Dr. Dhruv Grover","Dr. M.S. Hashmi","Dr. Rajiv Raman","Dr. Subhasis Bannerji","Ms. Geeta Tripathi (G)","Dr. Angshul Majumdar","Dr. ApalaG","Dr. Vikram Goyal","Dr. Saket Srivastava","Guest Faculty","Dr. Shreemoy Mishra","Mr. Hemant Kumar","Dr. Gaurav Gupta","Dr. Debajyoti Bera","Dr. Mayank Vatsa","Dr. Shreemoy Mishra","Dr. Sujay Deb","Dr. Astrid Kiehn","Prof. Ashwin Srinivasan","Dr. Sriram K","Dr. Vinayak Naik","Dr. Mayank Vatsa","Dr. Pushpendra Singh","Guest Faculty","Dr. Vikram Goyal","Dr. Sanjit Kaul","Dr. PK","Dr. Debajyoti Bera","Dr. P.B. Sujit","Dr. Sriram K","Prof. Ashwin Srinivasan","Dr. Ashish ureka",
 "Dr. Donghoon Chan");
-
+var courseNames = new Array(" Applied Cryptography " , " Algorithms in Computer Biology " , " Analog Circuit Design " , " Algorithms for discrete optimization " , " Computer Architecture " , " Cellular Data Network " , " Collabortive Filtering " , " Compilers " , " Database Systems Implementation " , " Digital Hardware Design " , " Data Mining " , " Economics of Information & IT " , " Entrepreneurship " , " Foundations of Computer Security " , " Graduate Algorithms (for MTech only) " , " Image Analysis " , " Introduction to Economic Analysis " , " Introduction to VLSI Design " , " Logic for Computer Science " , " Logic Programming and Learning " , " Miolecular Biology and biochemistry " , " Mobile Computing " , " Machine Learning " , " Operating Systems (ECE only) " , " Physics-1 " , " Privacy in Location-based Services (PLBS) " , " Probability and Random Processes " , " Privacy and Security in Online Social Networks " , " PvsNP " , " Robotics " , " Systems Biology " , " Statistical Computation " , " Software Engineering " , " Theory of Modern Cryptography ");
 var selectedCourses = new Array();
 var collisionCourses = new Array();
+var initial_degree=0;
 function rotate(eleStr,deg){
 	document.getElementById(eleStr).setAttribute(
 			"style", "transform:rotate(" + deg + "deg);"
@@ -42,6 +44,10 @@ function rotate(eleStr,deg){
 			var element = document.getElementById("reset");
 			element.style.marginLeft= "0px";
 			element.style.display = "inline-block";
+			document.getElementById("tooltip").className= "tooltip-shown";
+			document.getElementById("tooltip").innerHTML= "Start again/Make changes";
+			//alert(initial_deg);
+			initial_degree = deg;
 	}
 }
 function setTd(groupIndex, className, innerHTML){
@@ -66,17 +72,9 @@ function addTd(groupIndex, className, innerHTML){
  y.innerHTML += innerHTML;
 }
 function increase(){
- /*x=document.getElementById("navbar");
- y=document.getElementById("arrow");
- z=document.getElementById("tick");
- a=document.getElementById("cross");
- b=document.getElementById("reset");
- c=document.getElementById("navbar-container");
- d=document.getElementById("navbar-text");*/
- 
  rotate("arrow",-11.25 * count);
  count++;
- Vnavbar.style.marginLeft=(j-300)+"px";
+ /*Vnavbar.style.marginLeft=(j-300)+"px";
  Varrow.style.marginLeft=j+"px";
  Vtick.style.marginLeft=(k-250)+"px";
  Vcross.style.marginLeft=(k-200)+"px";
@@ -84,7 +82,10 @@ function increase(){
  VnavbarContainer.style.width=50+k+"px";
  VnavbarContainer.style.height=250+l+"px";
  VnavbarText.style.marginLeft=j+"px";
- 
+ */
+ Varrow.style.marginLeft=j+"px";
+ VnavbarWrapper.style.left = (j-300)+"px";
+ VnavbarText.style.marginLeft=j+"px";
  k+=15.625;
  j+=18.75;
  l+=12.5;
@@ -93,14 +94,17 @@ function decrease(){
  
  
  rotate("arrow",-11.25 * count);
- Vnavbar.style.marginLeft=j+"px";
+ /*Vnavbar.style.marginLeft=j+"px";
  Varrow.style.marginLeft=(300+j)+"px";
  Vtick.style.marginLeft=k+"px";
  Vcross.style.marginLeft=(50+k)+"px";
  Vreset.style.marginLeft=k+"px";
  VnavbarContainer.style.width=300+k+"px";
  VnavbarContainer.style.height=450+l+"px";
+ VnavbarText.style.marginLeft=(300+j)+"px";*/
+ Varrow.style.marginLeft=(300+j)+"px";
  VnavbarText.style.marginLeft=(300+j)+"px";
+ VnavbarWrapper.style.left=j+"px";
  
  count--;
  k-=15.625;
@@ -111,7 +115,7 @@ function toggle(){
  x=document.getElementById("navbar");
  y=document.getElementById("navbar-container");
  
- if(x.style.marginLeft=="-300px"){
+ if(VnavbarWrapper.style.left=="-300px"){
 	j = 0;
 	k = 0;
 	l = 0;
@@ -122,6 +126,7 @@ function toggle(){
 	//y.className="no-border";
  }
  else{
+	
 	j = 0;
 	k = 0;
 	l = 0;
@@ -133,22 +138,29 @@ function toggle(){
  }
 }
 var timeouts =[];
+
+
 function reset_rotate(){
 	var rot = 22.5;
 	for(var i=0; i<=16; i++){
-		timeouts.push(setTimeout("rotate(\"reset\","+ (i*rot) +")",i*31.25));
+		timeouts.push(setTimeout(rotate,i*31.25,"reset",initial_degree+(i*rot)));
 	}
 }
+
 function stop_reset_rotate(){
+	var flag=0;
 	for(var i =0; i<timeouts.length ; i++){
 		clearTimeout(timeouts[i]);
 	}
 	timeouts = [];
 }
 
-function addCourse(index){
- var x = document.getElementById(index+"");
- x.className += " selected";
+function addCourse(index,share){
+ if(share=="no"){
+	var x = document.getElementById(index+"");
+	x.className += " selected";
+ }
+ 
  addTd( groupIndexes[index-1], " selected", elements[index-1]+" ")
 /* var e = document.getElementsByClassName("group"+groupIndexes[index-1]);
  for(var i=0;i<e.length; i++){
@@ -157,11 +169,12 @@ function addCourse(index){
  }*/
  addInfo(index);
 }
-function deleteCourse(index){
- var x = document.getElementById(index+"");
- x.className = "options";
+function deleteCourse(index,share){
+ if(share=="no"){
+	var x = document.getElementById(index+"");
+	x.className = "options";
+ }
  var g="group"+groupIndexes[index-1];
-
  setTd(groupIndexes[index-1], g , "");
 /*
  var e = document.getElementsByClassName(g);
@@ -222,7 +235,7 @@ function deleteCollision(index){
 	color(toColor[i]+1);
  }
 }
-function color(indexCourseSelect){
+function color(indexCourseSelect,share){
  var present = 0;
  var collision =0;
  var tempIndex = -1;
@@ -250,12 +263,12 @@ function color(indexCourseSelect){
 	addCollision(indexCourseSelect);
  }
  else if(present==1 && collision==0){ // Unclick without any collisions
-	deleteCourse(indexCourseSelect);
+	deleteCourse(indexCourseSelect,share);
 	selectedCourses.splice(tempIndex,1);
  }
  else{ // Course selected, no collisions
 	selectedCourses.push(indexCourseSelect-1);
-	addCourse(indexCourseSelect);
+	addCourse(indexCourseSelect,share);
  }
 
 }
@@ -295,7 +308,7 @@ function addInfo(index){
 		ele.innerHTML="";
 	};
 	x[a].onmouseover = function(e) {
-		ele.innerHTML = document.getElementById(""+index).innerHTML;
+		ele.innerHTML = courseNames[index-1];
 		ele.innerHTML += "<br><br>"+profs[index-1];
 	};
  }
@@ -317,14 +330,14 @@ function finish(){
 	//Remove rotation
 	document.getElementById("reset").onmouseover = function(){};
 	
-	if(finish_without_posting()!=-1){
+	if(finish_without_posting("no")!=-1){
 		toggle();
 		post_to_url();
 	}
 	else// Cannot POST so restore rotation
 		document.getElementById("reset").onmouseover = reset_rotate; 
 }
-function finish_without_posting(){
+function finish_without_posting(share){
 	var groups = new Array(0,0,0,0,0,0,0,0,0);
 	for(var i=0; i<selectedCourses.length ;i++){
 		var tmp = groupIndexes[selectedCourses[i]];
@@ -352,18 +365,23 @@ function finish_without_posting(){
 			y.className = "final"+(i+1);
 		}
 	}
-	//Start freezing
-	//Remove Cross
-	document.getElementById("cross").style.display = "none";
-	//Remove Tick
-	document.getElementById("tick").style.display = "none";
-	//Freeze changes in navbar
-	for(var i=1;i<34;i++){
-		document.getElementById(""+i).onclick = "";
+	if(share=="yes"){
+		return 1;
 	}
-	//Add reset
-	document.getElementById("reset").style.display = "inline-block";
-	return 1;
+	else{
+		//Start freezing
+		//Remove Cross
+		document.getElementById("cross").style.display = "none";
+		//Remove Tick
+		document.getElementById("tick").style.display = "none";
+		//Freeze changes in navbar
+		for(var i=1;i<34;i++){
+			document.getElementById(""+i).onclick = "";
+		}
+		//Add reset
+		document.getElementById("reset").style.display = "inline-block";
+		return 1;
+	}
 }
 function courses_from_index(){
 	var coursesStr = "";
@@ -440,11 +458,56 @@ function facebook_share(){
 	window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent("http://createyourtimetable.appspot.com/s?c="+courses_from_index()),'facebook-share-dialog','width=626,height=436'); 
 }
 function initGlobalVars(){
- Vnavbar=document.getElementById("navbar");
- Varrow=document.getElementById("arrow");
+ /*Vnavbar=document.getElementById("navbar");
  Vtick=document.getElementById("tick"); 
  Vcross=document.getElementById("cross");
  Vreset=document.getElementById("reset");
- VnavbarContainer=document.getElementById("navbar-container");
+ VnavbarContainer=document.getElementById("navbar-container");*/
+ Varrow=document.getElementById("arrow");
  VnavbarText=document.getElementById("navbar-text");
+ VnavbarWrapper=document.getElementById("navbar-wrapper");
+ VnavbarWrapper.style.left = "-300px";
+}
+function assignTooltips(){
+	document.getElementById("tick").onmouseover= function(){
+		document.getElementById("tooltip").className= "tooltip-shown";
+		document.getElementById("tooltip").innerHTML= "Click to complete";
+	};
+	document.getElementById("tick").onmouseout= function(){
+		document.getElementById("tooltip-arrow").className = "tooltip-arrow-hidden";
+		document.getElementById("tooltip").className= "tooltip-hidden";
+		document.getElementById("tooltip-arrow").removeAttribute('style');
+	};
+	document.getElementById("cross").onmouseover= function(){
+		document.getElementById("tooltip").className= "tooltip-shown";
+		document.getElementById("tooltip").innerHTML= "Reset courses";
+	};
+	document.getElementById("cross").onmouseout= function(){
+		document.getElementById("tooltip").className= "tooltip-hidden";
+	};
+	document.getElementById("facebook").onmouseover= function(){
+		document.getElementById("tooltip").className= "tooltip-shown";
+		document.getElementById("tooltip").innerHTML= "Share on Facebook";
+	};
+	document.getElementById("facebook").onmouseout= function(){
+
+		document.getElementById("tooltip").className= "tooltip-hidden";
+	};
+	document.getElementById("power").onmouseover= function(){
+		document.getElementById("tooltip").className= "tooltip-shown";
+		document.getElementById("tooltip").innerHTML= "Log Off";
+	};
+	document.getElementById("power").onmouseout= function(){
+		document.getElementById("tooltip").className= "tooltip-hidden";
+	};
+	//Tooltip for reset added in reset_rotate function
+	/*
+	document.getElementById("reset").onmouseover= function(){
+		document.getElementById("tooltip").className= "tooltip-shown";
+		document.getElementById("tooltip").innerHTML= "Make changes";
+	};*/
+	document.getElementById("reset").onmouseout= function(){
+	stop_reset_rotate();
+		document.getElementById("tooltip").className= "tooltip-hidden";
+	};
 }

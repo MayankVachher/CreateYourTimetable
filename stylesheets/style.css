@@ -88,11 +88,11 @@ div#arrow{
 }
 div#tick{
  display:inline-block;
- position:fixed;
- margin-top:50px;
+ #position:fixed;
+ #margin-top:50px;
  height:50px;
  width:50px;
- margin-left:-300px;
+ #margin-left:-300px;
 }
 div#navbar-text{
  display:inline-block;
@@ -102,35 +102,52 @@ div#navbar-text{
  width:50px;
  cursor:pointer;
 }
-div#cross{
+div#navbar-wrapper{
  display:inline-block;
  position:fixed;
  margin-top:50px;
+ height:450px;
+ width:300px;
+ left:-300px;
+}
+div#navbar{
+ position:fixed;
+ height:400px;
+ width:300px;
+ background-color:white;
+ #margin-top:50px;
+ #margin-left:-300px;
+ overflow:scroll;
+ margin-bottom:0px;
+ padding-bottom:0px;
+}
+div#cross{
+ display:inline-block;
+ #position:fixed;
+ #margin-top:50px;
  height:50px;
  width:50px;
- margin-left:-250px;
+ #margin-left:-250px;
 }
 div#reset{
  -moz-border-radius:50%;
  -webkit-border-radius:50%;
  border-radius:50%;
  display:none;
- position:fixed;
+ #position:fixed;
  height:50px;
  width:50px;
- margin-top:50px;
- margin-left:-300px;
+ #margin-top:50px;
+ #margin-left:-300px;
 }
 div#facebook{
- position:fixed;
- right: 50px;
- margin:0px;
- padding:0px;
+ display:inline-block;
  width:50px;
  height:50px;
 }
 div#power{
- position:fixed;
+ display:inline-block;
+ position: absolute;
  right: 0px;
  margin:0px;
  padding:0px;
@@ -267,6 +284,43 @@ div.selected{
  width:100px;
  text-align:center;
  color:white;
+}
+div.tooltip-hidden{
+ display:none;
+ position:fixed;
+ height:45px;
+ width:300px;
+ background-color: red;
+ border:1px solid;
+ border-color: rgb(51,51,51);
+}
+div.tooltip-shown{
+ position:fixed;
+ left:5px;
+ top:5px;
+ display:block;
+ height:30px;
+ width:288px;
+ padding:2px;
+ border:0px solid;
+ border-color: orange;
+ #box-shadow: 0px 0px 1px 1px #333333;
+ text-align:center;
+ line-height: 30px;
+ font-family: "Sans-serif";
+ letter-spacing: 3px;
+}
+div.tooltip-arrow-hidden{
+ display:none;
+ width:50x;
+ height:25px;
+}
+div.tooltip-arrow-shown{
+ position:fixed;
+ width:50x;
+ height:25px;
+ left:10px;
+ top:37px;
 }
 div.infobar-hidden{
  top:-60px;
