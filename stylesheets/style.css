@@ -88,11 +88,11 @@ div#arrow{
 }
 div#tick{
  display:inline-block;
- #position:fixed;
- #margin-top:50px;
+ /*position:fixed;
+ #margin-top:50px;*/
  height:50px;
  width:50px;
- #margin-left:-300px;
+ /*#margin-left:-300px;*/
 }
 div#navbar-text{
  display:inline-block;
@@ -115,30 +115,30 @@ div#navbar{
  height:400px;
  width:300px;
  background-color:white;
- #margin-top:50px;
- #margin-left:-300px;
+ /*#margin-top:50px;
+ #margin-left:-300px;*/
  overflow:scroll;
  margin-bottom:0px;
  padding-bottom:0px;
 }
 div#cross{
  display:inline-block;
- #position:fixed;
- #margin-top:50px;
+ /*#position:fixed;
+ #margin-top:50px;*/
  height:50px;
  width:50px;
- #margin-left:-250px;
+ /*#margin-left:-250px;*/
 }
 div#reset{
  -moz-border-radius:50%;
  -webkit-border-radius:50%;
  border-radius:50%;
  display:none;
- #position:fixed;
+ /*#position:fixed;*/
  height:50px;
  width:50px;
- #margin-top:50px;
- #margin-left:-300px;
+ /*#margin-top:50px;
+ #margin-left:-300px;*/
 }
 div#facebook{
  display:inline-block;
@@ -190,7 +190,7 @@ td.day:hover{
  background-color:rgba(255,255,255,0.0);
 }
 td:hover{
-background-color:rgb(63,173,168);!important
+background-color:rgb(63,173,168);
 }
 tr.top-row{
  font-size:8px;
@@ -210,11 +210,11 @@ div.options{
 }
 div.options:hover{
  background-color:orange;
- text-color:white;
+ color:white;
 }
 div.selected{
  background-color:orange;
- text-color:white;
+ color:white;
 }
 .group1 , .group2 , .group3 , .group4 , .group5 , .group6 , .group7 , .group8 , .group9{
  background-color: rgba(0,0,0,0.0);
@@ -304,7 +304,7 @@ div.tooltip-shown{
  padding:2px;
  border:0px solid;
  border-color: orange;
- #box-shadow: 0px 0px 1px 1px #333333;
+ /*#box-shadow: 0px 0px 1px 1px #333333;*/
  text-align:center;
  line-height: 30px;
  font-family: "Sans-serif";
@@ -312,19 +312,19 @@ div.tooltip-shown{
 }
 div.tooltip-arrow-hidden{
  display:none;
- width:50x;
+ width:50px;
  height:25px;
 }
 div.tooltip-arrow-shown{
  position:fixed;
- width:50x;
+ width:50px;
  height:25px;
  left:10px;
  top:37px;
 }
 div.infobar-hidden{
  top:-60px;
- left-200px;
+ left:-200px;
  position:fixed;
  display:none;
 }

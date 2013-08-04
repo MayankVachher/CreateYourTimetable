@@ -24,12 +24,11 @@ var count = 1;
  var VnavbarContainer;
  var VnavbarText;
  var VnavbarWrapper;
-var elements = new Array("AC","ACB","ACD","ADD","CA","CDN","CF","CMP","DBSI","DHD","DM","EIIT","ENT","FCS","GradAlgo","IA","IEA","IVD","LCS","LPL",
-"MBB","MC","ML","OS","PHY","PLBS","PRP","PSOSM","PvsNP","ROB","SB","SC","SE","TMC");
-var groupIndexes = new Array(3,8,5,4,5,8,8,2,1,4,1,2,7,8,5,6,1,3,1,2,0,2,7,10,9,4,7,4,8,7,3,6,5,6);
-var profs = new Array("Dr. Somitra Sanadhya","Dr. Dhruv Grover","Dr. M.S. Hashmi","Dr. Rajiv Raman","Dr. Subhasis Bannerji","Ms. Geeta Tripathi (G)","Dr. Angshul Majumdar","Dr. ApalaG","Dr. Vikram Goyal","Dr. Saket Srivastava","Guest Faculty","Dr. Shreemoy Mishra","Mr. Hemant Kumar","Dr. Gaurav Gupta","Dr. Debajyoti Bera","Dr. Mayank Vatsa","Dr. Shreemoy Mishra","Dr. Sujay Deb","Dr. Astrid Kiehn","Prof. Ashwin Srinivasan","Dr. Sriram K","Dr. Vinayak Naik","Dr. Mayank Vatsa","Dr. Pushpendra Singh","Guest Faculty","Dr. Vikram Goyal","Dr. Sanjit Kaul","Dr. PK","Dr. Debajyoti Bera","Dr. P.B. Sujit","Dr. Sriram K","Prof. Ashwin Srinivasan","Dr. Ashish ureka",
-"Dr. Donghoon Chan");
-var courseNames = new Array(" Applied Cryptography " , " Algorithms in Computer Biology " , " Analog Circuit Design " , " Algorithms for discrete optimization " , " Computer Architecture " , " Cellular Data Network " , " Collabortive Filtering " , " Compilers " , " Database Systems Implementation " , " Digital Hardware Design " , " Data Mining " , " Economics of Information & IT " , " Entrepreneurship " , " Foundations of Computer Security " , " Graduate Algorithms (for MTech only) " , " Image Analysis " , " Introduction to Economic Analysis " , " Introduction to VLSI Design " , " Logic for Computer Science " , " Logic Programming and Learning " , " Miolecular Biology and biochemistry " , " Mobile Computing " , " Machine Learning " , " Operating Systems (ECE only) " , " Physics-1 " , " Privacy in Location-based Services (PLBS) " , " Probability and Random Processes " , " Privacy and Security in Online Social Networks " , " PvsNP " , " Robotics " , " Systems Biology " , " Statistical Computation " , " Software Engineering " , " Theory of Modern Cryptography ");
+ var Vtooltip;
+var elements = new Array("AC","ACB","ACD","ADD","CA","CDN","CF","CMP","DBSI","DHD","DM","EIIT","ENT","FCS","GradAlgo","HSS-History","HSS-Lit","HSS-Socio","HSS-Theatre" ,"IA","IEA","IVD","LCS","LPL","MBB","MC","ML","OS","PHY","PLBS","PRP","PSOSM","PvsNP","ROB","SB","SC","SE","TMC");
+var groupIndexes = new Array(3,8,5,4,5,8,8,2,1,4,1,2,7,8,5,6,10,10,6,6,1,3,1,2,0,2,7,10,9,4,7,4,8,7,3,6,5,6);
+var profs = new Array("Dr. Somitra Sanadhya","Dr. Dhruv Grover","Dr. M.S. Hashmi","Dr. Rajiv Raman","Dr. Subhasis Bannerji","Ms. Geeta Tripathi (G)","Dr. Angshul Majumdar","Dr. ApalaG","Dr. Vikram Goyal","Dr. Saket Srivastava","Guest Faculty","Dr. Shreemoy Mishra","Mr. Hemant Kumar","Dr. Gaurav Gupta","Dr. Debajyoti Bera","Mr. Uma Shankar Singh","Ms. Parul Tyagi","Dr. Duru","Mr. Manohar Khushalani","Dr. Mayank Vatsa","Dr. Shreemoy Mishra","Dr. Sujay Deb","Dr. Astrid Kiehn","Prof. Ashwin Srinivasan","Dr. Sriram K","Dr. Vinayak Naik","Dr. Mayank Vatsa","Dr. Pushpendra Singh","Guest Faculty","Dr. Vikram Goyal","Dr. Sanjit Kaul","Dr. PK","Dr. Debajyoti Bera","Dr. P.B. Sujit","Dr. Sriram K","Prof. Ashwin Srinivasan","Dr. Ashish ureka","Dr. Donghoon Chan");
+var courseNames = new Array(" Applied Cryptography " , " Algorithms in Computer Biology " , " Analog Circuit Design " , " Algorithms for discrete optimization " , " Computer Architecture " , " Cellular Data Network " , " Collabortive Filtering " , " Compilers " , " Database Systems Implementation " , " Digital Hardware Design " , " Data Mining " , " Economics of Information & IT " , " Entrepreneurship " , " Foundations of Computer Security " , " Graduate Algorithms (for MTech only) " ,"Course on History", " Introduction to the Study of Literature" ," Introduction to Sociology ","Theatre Appreciation" , " Image Analysis " , " Introduction to Economic Analysis " , " Introduction to VLSI Design " , " Logic for Computer Science " , " Logic Programming and Learning " , " Miolecular Biology and biochemistry " , " Mobile Computing " , " Machine Learning " , " Operating Systems (ECE only) " , " Physics-1 " , " Privacy in Location-based Services (PLBS) " , " Probability and Random Processes " , " Privacy and Security in Online Social Networks " , " PvsNP " , " Robotics " , " Systems Biology " , " Statistical Computation " , " Software Engineering " , " Theory of Modern Cryptography ");
 var selectedCourses = new Array();
 var collisionCourses = new Array();
 var initial_degree=0;
@@ -41,13 +40,12 @@ function rotate(eleStr,deg){
 		  + "-webkit-transform:rotate(" + deg + "deg);"
 		  + "filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=" + deg + ");");
 	if(eleStr=="reset"){
-			var element = document.getElementById("reset");
-			element.style.marginLeft= "0px";
-			element.style.display = "inline-block";
-			document.getElementById("tooltip").className= "tooltip-shown";
-			document.getElementById("tooltip").innerHTML= "Start again/Make changes";
-			//alert(initial_deg);
+			Vreset.style.marginLeft= "0px";
+			Vreset.style.display = "inline-block";
+			//Vtooltip.className= "tooltip-shown";
+			//Vtooltip.innerHTML= "Start again/Make changes";
 			initial_degree = deg;
+			//alert(""+initial_degree);
 	}
 }
 function setTd(groupIndex, className, innerHTML){
@@ -62,6 +60,7 @@ function setTd(groupIndex, className, innerHTML){
 	e[i].className = className;
 	e[i].innerHTML = innerHTML;
  }*/
+ 
 }
 function addTd(groupIndex, className, innerHTML){
  var x = document.getElementById(groupIndex+":1");
@@ -170,21 +169,17 @@ function addCourse(index){
 }
 function deleteCourse(index){
  var x = document.getElementById(index+"");
+ 
  if(x)x.className = "options";
  var g="group"+groupIndexes[index-1];
+ 
  setTd(groupIndexes[index-1], g , "");
-/*
- var e = document.getElementsByClassName(g);
- for(var i=0;i<e.length; i++){
-	e[i].className = g;
-	e[i].innerHTML="";
- }*/
- removeInfo(index-1);
+ removeInfo(index);
 }
 function addCollision(index){
  var x = document.getElementById(index+"");
  x.className += " selected";
-
+ 
  addTd( groupIndexes[index-1], " collision", elements[index-1]+" ");
  /*var e = document.getElementsByClassName("group"+groupIndexes[index-1]);
  for(var i=0;i<e.length; i++){
@@ -233,6 +228,7 @@ function deleteCollision(index){
  }
 }
 function color(indexCourseSelect){
+ 
  var present = 0;
  var collision =0;
  var tempIndex = -1;
@@ -312,16 +308,17 @@ function addInfo(index){
 }
 //Takes input index as, the real index and not index-1
 function removeInfo(index){
- var x = document.getElementsByClassName("group"+groupIndexes[index]);
- var y = document.getElementById("infobar");
- y.className="infobar-hidden";
- y.innerHTML="";
- for(var a=0 ; a< x.length ; a++){
-	x[a].onmousemove = "";
-	x[a].onmouseout = "";
-	x[a].onmouseover = "";
-	x[a].innerHTML = "";
- }
+ var x = document.getElementById(groupIndexes[index-1]+":1");
+ var y = document.getElementById(groupIndexes[index-1]+":2");
+ var z = document.getElementById("infobar");
+ z.className="infobar-hidden";
+ z.innerHTML="";
+ x.onmousemove = "";
+ x.onmouseout = "";
+ x.onmouseover = "";
+ y.onmousemove = "";
+ y.onmouseout = "";
+ y.onmouseover = "";
 }
 function finish(){
 	//Remove rotation
@@ -445,7 +442,7 @@ function reset(){
 	}
 }
 function assignId(){
-	for(var i=1 ; i<=9 ; i++){
+	for(var i=1 ; i<=10 ; i++){
 		var temp = document.getElementsByClassName("group"+i);
 		temp[0].id = i+":1";
 		temp[1].id = i+":2";
@@ -458,12 +455,14 @@ function initGlobalVars(){
  /*Vnavbar=document.getElementById("navbar");
  Vtick=document.getElementById("tick"); 
  Vcross=document.getElementById("cross");
- Vreset=document.getElementById("reset");
+ 
  VnavbarContainer=document.getElementById("navbar-container");*/
+ Vreset=document.getElementById("reset");
  Varrow=document.getElementById("arrow");
  VnavbarText=document.getElementById("navbar-text");
  VnavbarWrapper=document.getElementById("navbar-wrapper");
  VnavbarWrapper.style.left = "-300px";
+ Vtooltip = document.getElementById("tooltip");
 }
 function assignTooltips(){
 	document.getElementById("tick").onmouseover= function(){
