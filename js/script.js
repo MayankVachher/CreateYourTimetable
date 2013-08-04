@@ -52,15 +52,12 @@ function setTd(groupIndex, className, innerHTML){
  //var e = document.getElementsByClassName("group"+groupIndex);
  var x = document.getElementById(groupIndex+":1");
  var y = document.getElementById(groupIndex+":2");
- x.className = className;
- y.className = className;
- x.innerHTML = innerHTML;
- y.innerHTML = innerHTML;
- /*for(var i=0; i<e.length ; i++){
-	e[i].className = className;
-	e[i].innerHTML = innerHTML;
- }*/
- 
+ if(x && y){
+	 x.className = className;
+	 y.className = className;
+	 x.innerHTML = innerHTML;
+	 y.innerHTML = innerHTML;
+ } 
 }
 function addTd(groupIndex, className, innerHTML){
  var x = document.getElementById(groupIndex+":1");
@@ -174,7 +171,7 @@ function deleteCourse(index){
  
  if(x)x.className = "options";
  var g="group"+groupIndexes[index-1];
- 
+ if(g=="group0") return;
  setTd(groupIndexes[index-1], g , "");
  removeInfo(index);
 }
@@ -441,8 +438,10 @@ function reset(){
 		var groupIndex = groupIndexes[selectedCourses[i]];
 		var x = document.getElementById(groupIndex+":1");
 		var y = document.getElementById(groupIndex+":2");
-		x.className = "group" + i + " selected";
-		y.className = "group" + i + " selected";
+		if(x && y){
+			x.className = "group" + i + " selected";
+			y.className = "group" + i + " selected";
+		}
 	}
 }
 function assignId(){
