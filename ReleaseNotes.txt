@@ -1,3 +1,7 @@
+***Version 5.0***
+-- Added HSS courses
+-- Minor Bug Fix
+
 ***Version 4.0***
 -- Cleaned up UI to have everything in Navbar
 -- Added (more obvious) tooltip on hovering over buttons

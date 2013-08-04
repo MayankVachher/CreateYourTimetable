@@ -65,10 +65,12 @@ function setTd(groupIndex, className, innerHTML){
 function addTd(groupIndex, className, innerHTML){
  var x = document.getElementById(groupIndex+":1");
  var y = document.getElementById(groupIndex+":2");
- x.className += className;
- y.className += className;
- x.innerHTML += innerHTML;
- y.innerHTML += innerHTML;
+ if(x && y){
+	x.className += className;
+	y.className += className;
+	x.innerHTML += innerHTML;
+	y.innerHTML += innerHTML;	
+ }
 }
 function increase(){
  rotate("arrow",-11.25 * count);
@@ -228,7 +230,6 @@ function deleteCollision(index){
  }
 }
 function color(indexCourseSelect){
- 
  var present = 0;
  var collision =0;
  var tempIndex = -1;
@@ -289,6 +290,7 @@ function clearall(){
 }
 function addInfo(index){
  var x = document.getElementsByClassName("group"+groupIndexes[index-1]);
+ if(!x) return;
  var ele = document.getElementById("infobar");
  for(var a=0 ; a< x.length ; a++){
 	x[a].onmousemove = function(e) {
@@ -393,7 +395,9 @@ function courses_from_string(){
 	var newSelectedCourses = new Array();
 	for(var i=0 ; i<elements.length ; i++){
 		for(var a =0 ; a< tempArray.length; a++){
+			//alert(typeof(tempArray[a]));
 			if(tempArray[a]==elements[i])
+				
 				newSelectedCourses.push(i);
 		}
 	}
